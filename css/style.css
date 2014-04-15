@@ -1,0 +1,29 @@
+#qunitLink, #inputForm{
+	padding-top: 20px;
+	width: 375px;
+}
+
+#inputForm dt{
+	font-weight: bold;
+	margin:0;
+	padding: 0;
+}
+#inputForm dd{
+	margin:0;
+	padding: 0;
+}
+#inputForm input{
+	width: 100%;
+}
+#inputForm .btn{
+	margin-top: 20px;
+	float:right;
+}
+#inputForm .errorMsg{
+	display: none;
+	color: #F00;
+}
+
+#resultBox{
+	margin-top:70px;
+}

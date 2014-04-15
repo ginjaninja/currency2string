@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Currency to String</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <script type="text/javascript" src="js/cc.js"></script>
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  
+  <script type="text/javascript">
+  	$(document).ready(function(){
+      $('#inputNum').focus();
+
+  		$('#inputForm a').click(function(e){
+  			e.preventDefault();
+        if($('#inputNum').val() != ""){
+          if(valid($('#inputNum').val())){
+            hideError();
+            var n = new num2String($('#inputNum').val());
+    			   $('#result').html(n.output);
+          }else{
+            showError();
+            $('#inputNum').focus();
+          }
+        }
+  		});
+
+      $('#inputForm').keydown(function(e){
+        if(e.keyCode == 13){
+          $('#inputForm a').click();
+        }
+      });
+
+      function valid(input){
+        input = input.replace(/,/g, "");
+        if(input.toString().length <= 15 && input.match(/\d/g)){
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      function showError(){
+        $('#inputForm').addClass('has-error');
+        $('.errorMsg').show();
+      }
+
+      function hideError(){
+        $('#inputForm').removeClass('has-error');
+        $('.errorMsg').hide();
+      }
+
+  	});
+  </script>
+</head>
+<body>
+
+<div id="qunitLink" class="container">
+    <a href="qunit.html">QUnit tests</a>
+</div>
+
+<div id="inputForm" class="container form-group">
+	
+  <h3>Currency2String</h3>
+  <dl>
+		
+		<dt>Please enter the value you would like to translate</dt>
+    <dd><input type="text" id="inputNum" class="form-control" /></dd>
+
+    <dd class="errorMsg"><em>The value you entered is not valid. Values must be 15 digits or less and may contain commas.</em></dd>
+		<dd><a href="#" class="btn btn-primary">Submit</a></dd>
+    
+	</dl>
+
+  <div id="resultBox">
+    <h4>Result:</h4>
+    <div id="result"></div>
+  </div>
+</div>
+
+
+
+</body>
+</html>

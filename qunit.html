@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Currency to String</title>
+  
+
+  <script type="text/javascript" src="js/cc.js"></script>
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/qunit-1.12.0.js"></script>
+  <script type="text/javascript">
+  	test("416.04, just dollars", function(){
+      var n = new num2String(416.04);
+      equal(n.dollars, 416, "Successfully returned dollars");
+    });
+
+    test("416.04 just cents", function(){
+      var n = new num2String(416.04);
+      equal(n.cents, 04, "Successfully returned cents");
+    });
+
+    test("416.04 just fCents", function(){
+      var n = new num2String(416.04);
+      equal(n.fCents(), "04/100", "Successfully returned fCents");
+    });
+
+    test("416.04", function(){
+  		var n = new num2String(416.04);
+  		equal(n.output(), "four hundred sixteen and 04/100 dollars", "Successfully converted 416.04");
+  	});
+
+  	test("320", function(){
+  		var n = new num2String(320);
+  		equal(n.output(), "three hundred twenty dollars", "Successfully converted 320");
+  	});
+
+    test("200", function(){
+      var n = new num2String(200);
+      equal(n.output(), "two hundred dollars", "Successfully converted 200");
+    });
+
+    test("567,545.04", function(){
+      var n = new num2String("567,545.04");
+      equal(n.output(), "five hundred sixty-seven thousand five hundred forty-five and 04/100 dollars", "Successfully converted 67,545.04");
+    });
+
+    test("8813105.04", function(){
+      var n = new num2String(8813105.04);
+      equal(n.output(), "eight million eight hundred thirteen thousand one hundred five and 04/100 dollars", "Successfully converted 8813105.04");
+    });
+
+    test("812,567,545.50", function(){
+      var n = new num2String("812,567,545.50");
+      equal(n.output(), "eight hundred twelve million five hundred sixty-seven thousand five hundred forty-five and 50/100 dollars", "Successfully converted 812,567,545.04");
+    });
+
+    test("8,000,654,221", function(){
+      var n = new num2String("8,000,654,221");
+      equal(n.output(), "eight billion six hundred fifty-four thousand two hundred twenty-one  dollars", "Successfully converted 8,000,654,221");
+    });
+  </script>
+
+  <link rel="stylesheet" type="text/css" href="css/qunit-1.12.0.css">
+</head>
+<body>
+
+
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+</body>
+</html>
+
+
+
