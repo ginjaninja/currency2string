@@ -1,4 +1,4 @@
 currency2string
 ===============
 
-Converts a numerical value to a string currency.
+Converts a numerical currency value to a string.
