@@ -1,9 +1,3 @@
-//convert number to char array
-//reverse array so when start from the front know which position # is in
-//use dictionaries to match each position-number to string
-//2523.04
-
-
 function num2String(number){
   //setup functions
   number = number;
