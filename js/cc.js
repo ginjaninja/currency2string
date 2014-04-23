@@ -1,6 +1,13 @@
-function num2String(number){
+/**
+currency2string
+author: Shannon McAvoy (Raymond)
+currency2string allows you to convert a numerical value into a currency string. See qunit tests for examples.
+Use num2String.valid to check the validity of the input.
+**/
+function num2String(input){
   //setup functions
-  number = number;
+  number = input;
+  valid = validInput(number);
   numArr = splitCents(number);
   dollars = numArr[0];
   cents = numArr[1];
@@ -10,6 +17,7 @@ function num2String(number){
   this.cents = cents;
   this.fCents = fCents;
   this.output = output;
+  this.valid = valid;
   
   function splitCents(number){
     return number.toString().replace(/,/g, "").split(".");
@@ -21,6 +29,15 @@ function num2String(number){
     return "";
   }
   
+	function validInput(input){
+		input = input.replace(/,/g, "");
+        if(input.toString().length <= 15 && input.match(/^\d{1,15}(\.\d{2}){0,1}$/gm)){
+          return true;
+        }else{
+          return false;
+        }
+    }
+	  
   function transNum(){
     var str = "";
     

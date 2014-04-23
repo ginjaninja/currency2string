@@ -9,33 +9,68 @@
   <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
   <script type="text/javascript" src="js/qunit-1.12.0.js"></script>
   <script type="text/javascript">
-  	test("416.04, just dollars", function(){
-      var n = new num2String(416.04);
+  	module("test externally accessible functions");
+	test("416.04, just dollars", function(){
+      var n = new num2String("416.04");
       equal(n.dollars, 416, "Successfully returned dollars");
     });
 
     test("416.04 just cents", function(){
-      var n = new num2String(416.04);
+      var n = new num2String("416.04");
       equal(n.cents, 04, "Successfully returned cents");
     });
 
     test("416.04 just fCents", function(){
-      var n = new num2String(416.04);
+      var n = new num2String("416.04");
       equal(n.fCents(), "04/100", "Successfully returned fCents");
     });
 
+	
+	module("test validation");
+	test("valid input", function(){
+		var n = new num2String("444");
+		ok(n.valid, "444 is a valid input");
+	});	
+	
+	test("valid input with .", function(){
+		var n = new num2String("444.04");
+		ok(n.valid, "444.04 is a valid input");
+	});
+	
+	test("invalid input with too many .", function(){
+		var n = new num2String("44..50");
+		strictEqual(n.valid, false, "44..50 is not valid input");
+	});
+	
+	test("invalid input with symbol", function(){
+		var n = new num2String("44%");
+		strictEqual(n.valid, false, "44% is not valid input");
+	});
+	
+	test("invalid input with string", function(){
+		var n = new num2String("44rr4");
+		strictEqual(n.valid, false, "44rr4 is not valid input");
+	});
+	
+	test("invalid input too many cents", function(){
+		var n = new num2String("444.440");
+		strictEqual(n.valid, false, "444.440 is not valid input");
+	});
+	
+	
+	module("test output");
     test("416.04", function(){
-  		var n = new num2String(416.04);
+  		var n = new num2String("416.04");
   		equal(n.output(), "four hundred sixteen and 04/100 dollars", "Successfully converted 416.04");
   	});
 
   	test("320", function(){
-  		var n = new num2String(320);
+  		var n = new num2String("320");
   		equal(n.output(), "three hundred twenty dollars", "Successfully converted 320");
   	});
 
     test("200", function(){
-      var n = new num2String(200);
+      var n = new num2String("200");
       equal(n.output(), "two hundred dollars", "Successfully converted 200");
     });
 
@@ -45,7 +80,7 @@
     });
 
     test("8813105.04", function(){
-      var n = new num2String(8813105.04);
+      var n = new num2String("8813105.04");
       equal(n.output(), "eight million eight hundred thirteen thousand one hundred five and 04/100 dollars", "Successfully converted 8813105.04");
     });
 

@@ -14,16 +14,17 @@
 
   		$('#inputForm a').click(function(e){
   			e.preventDefault();
-        if($('#inputNum').val() != ""){
-          if(valid($('#inputNum').val())){
-            hideError();
-            var n = new num2String($('#inputNum').val());
-    			   $('#result').html(n.output);
-          }else{
-            showError();
-            $('#inputNum').focus();
-          }
-        }
+			if($('#inputNum').val() != ""){
+			  var n = new num2String($('#inputNum').val());
+			  if(n.valid){
+				hideError();
+				$('#result').html(n.output);
+			  }else{
+				showError();
+				$('#result').html('');
+				$('#inputNum').focus();
+			  }
+			}
   		});
 
       $('#inputForm').keydown(function(e){
@@ -31,15 +32,6 @@
           $('#inputForm a').click();
         }
       });
-
-      function valid(input){
-        input = input.replace(/,/g, "");
-        if(input.toString().length <= 15 && input.match(/\d/g)){
-          return true;
-        }else{
-          return false;
-        }
-      }
 
       function showError(){
         $('#inputForm').addClass('has-error');
