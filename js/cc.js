@@ -18,6 +18,7 @@ function num2String(input){
   this.fCents = fCents;
   this.output = output;
   this.valid = valid;
+  this.lookAhead = lookAhead;
   
   function splitCents(number){
     return number.toString().replace(/,/g, "").split(".");
@@ -37,7 +38,22 @@ function num2String(input){
           return false;
         }
     }
-	  
+	
+	function lookAhead(currentPos, arr){
+		var p = currentPos;
+		var numSet = "";
+		for(var x=0;x<3;x++){
+			if(arr[p+x]){
+				numSet += arr[p+x].toString();
+			}
+		}
+		if(numSet.match('000')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+  
   function transNum(){
     var str = "";
     
@@ -50,8 +66,15 @@ function num2String(input){
         //this is ones
         var o = oNum[parseInt(dArr[i], 0)];
         //is this is an order of magnitude?
-        if(i/3 > 0 && o != ""){
-          o = o + " " + mNum[i/3];
+        if(i/3 > 0){
+			//if this set is 000, don't add label
+			if(!lookAhead(i, dArr)){
+				if(o === ""){
+					o = mNum[i/3];
+				}else{
+					o = o + " " + mNum[i/3];
+				}
+			}
         }
         //remove spaces
         if(o != ""){
@@ -98,6 +121,7 @@ function num2String(input){
     return str;
   }
   
+  
   /** Object that stores position of label and label when converting **/
   function tTrans(position, label){
     this.position = position;
@@ -109,7 +133,7 @@ function num2String(input){
     if(fCents()){
       return transNum() + "and " + fCents() + " " + currency;  
     }else{
-      return transNum() + " " + currency;
+      return transNum().trim() + " " + currency;
     }
   }
 

@@ -25,6 +25,15 @@
       equal(n.fCents(), "04/100", "Successfully returned fCents");
     });
 
+	test("lookAhead 4,000,569", function(){
+      var n = new num2String("4,000,569");
+      ok(n.lookAhead(3, n.dollars.split("").reverse()), "Successfully returned true");
+    });
+	
+	test("lookAhead 200,000", function(){
+      var n = new num2String("200,000");
+      equal(n.lookAhead(3, n.dollars.split("").reverse()), false, "Successfully returned false");
+    });
 	
 	module("test validation");
 	test("valid input", function(){
@@ -61,37 +70,47 @@
 	module("test output");
     test("416.04", function(){
   		var n = new num2String("416.04");
-  		equal(n.output(), "four hundred sixteen and 04/100 dollars", "Successfully converted 416.04");
+  		equal(n.output(), "four hundred sixteen and 04/100 dollars", n.output());
   	});
 
   	test("320", function(){
   		var n = new num2String("320");
-  		equal(n.output(), "three hundred twenty dollars", "Successfully converted 320");
+  		equal(n.output(), "three hundred twenty dollars", n.output());
   	});
 
     test("200", function(){
       var n = new num2String("200");
-      equal(n.output(), "two hundred dollars", "Successfully converted 200");
+      equal(n.output(), "two hundred dollars", n.output());
     });
 
+	test("200,000", function(){
+      var n = new num2String("200,000");
+      equal(n.output(), "two hundred thousand dollars", n.output());
+    });
+	
+	test("200,123", function(){
+      var n = new num2String("200,123");
+      equal(n.output(), "two hundred thousand one hundred twenty-three dollars", n.output());
+    });
+	
     test("567,545.04", function(){
       var n = new num2String("567,545.04");
-      equal(n.output(), "five hundred sixty-seven thousand five hundred forty-five and 04/100 dollars", "Successfully converted 67,545.04");
+      equal(n.output(), "five hundred sixty-seven thousand five hundred forty-five and 04/100 dollars", n.output());
     });
 
     test("8813105.04", function(){
       var n = new num2String("8813105.04");
-      equal(n.output(), "eight million eight hundred thirteen thousand one hundred five and 04/100 dollars", "Successfully converted 8813105.04");
+      equal(n.output(), "eight million eight hundred thirteen thousand one hundred five and 04/100 dollars", n.output());
     });
 
     test("812,567,545.50", function(){
       var n = new num2String("812,567,545.50");
-      equal(n.output(), "eight hundred twelve million five hundred sixty-seven thousand five hundred forty-five and 50/100 dollars", "Successfully converted 812,567,545.04");
+      equal(n.output(), "eight hundred twelve million five hundred sixty-seven thousand five hundred forty-five and 50/100 dollars", n.output());
     });
 
     test("8,000,654,221", function(){
       var n = new num2String("8,000,654,221");
-      equal(n.output(), "eight billion six hundred fifty-four thousand two hundred twenty-one  dollars", "Successfully converted 8,000,654,221");
+      equal(n.output(), "eight billion six hundred fifty-four thousand two hundred twenty-one dollars", n.output());
     });
   </script>
 
